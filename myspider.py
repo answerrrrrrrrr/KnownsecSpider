@@ -4,7 +4,8 @@
 from threading import Thread
 from Queue import Queue
 from bs4 import BeautifulSoup
-import urllib2
+# import urllib2
+import requests
 import argparse
 import sqlite3
 import logging
@@ -162,16 +163,21 @@ class MySpider(object):
         # Request with headers
         try:
             logger.warning('Open %s' % url)
-            request = urllib2.Request(url, headers=headers)
-            result = urllib2.urlopen(request).read()
+            # request = urllib2.Request(url, headers=headers)
+            # result = urllib2.urlopen(request).read()
+
+            request = requests.get(url, headers=headers)
+            # result = request.text
+            result = request.content
         except ValueError as e:
             logger.error(e)
             return
 
         # Extract the title by BeautifulSoup
         soup = BeautifulSoup(result, "lxml")
+        logger.debug(soup.prettify())
         title = soup.title.string
-        logger.debug('title = %s' % title)
+        logger.info('title = %s' % title)
 
         # Store url and title of the page with keyword into database
         if self.key in result.lower():
@@ -220,9 +226,9 @@ def args_parser():
         help='specify the path of logfile (default: spider.log)'
     )
     parser.add_argument(
-        '-l', '--level', dest='loglevel', default=5, type=int,
+        '-l', '--level', dest='loglevel', default=4, type=int,
         choices=range(1, 6),
-        help='specify the verbose level of the log (default: 5)'
+        help='specify the verbose level of the log (default: 4)'
     )
     parser.add_argument(
         '--dbfile', dest='dbfile', default='spider.db',
