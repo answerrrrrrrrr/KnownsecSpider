@@ -119,7 +119,6 @@ class MySpider(object):
         self.dbfile = args.dbfile
         self.num_threads = args.num_threads
         self.key = args.key.lower()
-        self.selftest = args.selftest
 
         # Store visited url
         self.visited_urls = set()
@@ -185,7 +184,7 @@ class MySpider(object):
             db.insert(table, url, title)
             logger.critical(
                 'KEYWORD:\'%s\' - URL:\'%s\' - TITLE:\'%s\' (DEPTH:%d)' %
-                (self.key, url, title, depth))
+                (self.key, url, title, self.depth + 1 - depth))
 
         # Close database after modification
         db.close()
@@ -243,7 +242,7 @@ def args_parser():
         help='specify the keyword (default: '')'
     )
     parser.add_argument(
-        '--selftest', action='store_true',
+        '--testself', action='store_true',
         help='self-test'
     )
 
@@ -265,10 +264,39 @@ def set_logger(loglevel, logfile):
 
 
 def main():
-    args = args_parser()
-    set_logger(args.loglevel, args.logfile)
-    logger.debug(args)
+    ''' Prepare and run the spider
 
+    Self-test:
+    >>> class Args(object):
+    ...     pass
+    ...
+    >>> args = Args()
+    >>> args.url = 'www.baidu.com'
+    >>> args.depth = 1
+    >>> args.logfile = 'testself.log'
+    >>> args.loglevel = 4
+    >>> args.dbfile = 'testself.db'
+    >>> args.num_threads = 1
+    >>> args.key = ''
+    >>> set_logger(args.loglevel, args.logfile)
+    >>> logger.info(vars(args))
+    >>> spider = MySpider(args)
+    >>> spider.run()
+    '''
+    # Get args
+    args = args_parser()
+
+    # Self test
+    if args.testself:
+        import doctest
+        print doctest.testmod()
+        return
+
+    # Set logger
+    set_logger(args.loglevel, args.logfile)
+    logger.info(vars(args))
+
+    # Run the spider
     spider = MySpider(args)
     spider.run()
 
