@@ -165,9 +165,9 @@ class MySpider(object):
             # request = urllib2.Request(url, headers=headers)
             # result = urllib2.urlopen(request).read()
 
-            request = requests.get(url, headers=headers)
-            # result = request.text
-            result = request.content
+            response = requests.get(url, headers=headers)
+            # result = response.text
+            result = response.content
         except ValueError as e:
             logger.error(e)
             return
