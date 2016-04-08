@@ -2,7 +2,7 @@
 
 ## Intro
 
-[知道创宇面试题](http://blog.knownsec.com/2012/02/knownsec-recruitment/)
+[knownsec-recruitment](http://blog.knownsec.com/2012/02/knownsec-recruitment/)
 
 ## Usage
 
@@ -29,3 +29,7 @@ optional arguments:
 ```shell
 pip install beautifulsoup4
 ```
+
+## Blog
+
+http://answerrrrrrrrr.github.io/tags/Spider/
