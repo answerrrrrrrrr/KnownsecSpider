@@ -90,3 +90,9 @@ optional arguments:
 pip install beautifulsoup4
 ```
 
+## 运行截图
+```
+$ python myspider.py -u www.sina.com.cn -d 2
+```
+
+![res](http://7xsrqj.com2.z0.glb.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-04-09%20%E4%B8%8A%E5%8D%888.41.41.png)
