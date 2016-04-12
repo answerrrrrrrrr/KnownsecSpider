@@ -81,7 +81,7 @@ optional arguments:
   --dbfile DBFILE       specify the path of sqlite dbfile (default: spider.db)
   --thread NUM_THREADS  specify the size of thread pool (default: 10)
   --key KEY             specify the keyword (default: )
-  --selftest            self-test
+  --testself            self-test
 ```
 
 ## 第三方库
