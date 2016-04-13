@@ -165,10 +165,10 @@ class MySpider(object):
             # request = urllib2.Request(url, headers=headers)
             # result = urllib2.urlopen(request).read()
 
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=3)
             # result = response.text
             result = response.content
-        except ValueError as e:
+        except Exception as e:
             logger.error(e)
             return
 
