@@ -69,7 +69,7 @@ class MySqlite(object):
 
 class MyThreadPool(object):
     def __init__(self, num_threads=10):
-        self.tasks = Queue(num_threads)
+        self.tasks = Queue()
         for i in xrange(1, num_threads+1):
             # Initialize the pool with the number of num_threads
             logger.info('Initialize thread %d' % i)
