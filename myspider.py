@@ -70,7 +70,7 @@ class MySqlite(object):
 class MyThreadPool(object):
     def __init__(self, num_threads=10):
         self.tasks = Queue()
-        for i in xrange(1, num_threads+1):
+        for i in xrange(1, num_threads + 1):
             # Initialize the pool with the number of num_threads
             logger.info('Initialize thread %d' % i)
             MyThread(self.tasks)
@@ -87,7 +87,7 @@ class MyThreadPool(object):
 
 class MyThread(Thread):
     def __init__(self, tasks):
-        Thread.__init__(self)
+        super(self.__class__, self).__init__()
         self.tasks = tasks
         # This must be set before start() is called. The entire Python program
         # exits when no alive non-daemon threads are left.
@@ -174,7 +174,7 @@ class MySpider(object):
 
         # Extract the title by BeautifulSoup
         soup = BeautifulSoup(result, "lxml")
-        logger.debug(soup.prettify())
+        # logger.debug(soup.prettify())
         title = soup.title.string
         logger.info('title = %s' % title)
 
@@ -190,7 +190,7 @@ class MySpider(object):
         db.close()
 
         # Go deeper into urls in result
-        self.crawl(soup, depth-1)
+        self.crawl(soup, depth - 1)
 
     def crawl(self, soup, depth):
         ''' Crawl to new pages
